@@ -6,13 +6,33 @@ plugins {
 apply from: file("${rootProject.projectDir}/tools/gradle/cpp-formatter.gradle")
 
 task compileJNI {
-    doFirst {
-        if (System.properties['os.name'].toLowerCase(Locale.ROOT).contains("mac")) {
-            exec {
-                commandLine 'bash', 'build.sh'
-            }
-        } else {
-            throw new IllegalStateException("Unknown Architecture " + System.properties['os.name'])
+    def platform
+    def flavor = "cpu"
+    // TODO implement linux
+    if (System.properties['os.name'].toLowerCase(Locale.ROOT).contains("mac")) {
+        exec {
+            commandLine 'bash', 'build.sh'
         }
+        platform = "osx"
+    } else {
+        throw new IllegalStateException("Unknown Architecture " + System.properties['os.name'])
+    }
+    def engineDir = "${project.parent.projectDir}/dlr-engine"
+    def classifier = "${platform}-x86_64"
+    def publishDir = "${engineDir}/build/jnilib/${classifier}/${flavor}"
+    copy {
+        def tree = fileTree(project.buildDir)
+        tree.include("**/libdjl_dlr.*")
+        from tree.files
+        into publishDir
+    }
+    // for nightly ci
+    // the reason why we duplicate the folder here is to insert djl_version into the path
+    // so different versions of JNI wouldn't override each other. We don't also want publishDir
+    // to have djl_version as engine would require to know that during the System.load()
+    def ciDir = "${project.projectDir}/jnilib/${djl_version}/${classifier}/${flavor}"
+    copy {
+        from publishDir
+        into ciDir
     }
 }
