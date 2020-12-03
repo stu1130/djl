@@ -75,15 +75,17 @@ import org.slf4j.LoggerFactory;
 public class Predictor<I, O> implements AutoCloseable {
 
     private static final Logger logger = LoggerFactory.getLogger(Predictor.class);
-    private Translator<I, O> translator;
+    protected Translator<I, O> translator;
     private long timestamp;
 
     private boolean prepared;
-    private Model model;
-    private NDManager manager;
+    protected Model model;
+    protected NDManager manager;
     Metrics metrics;
-    private Block block;
+    protected Block block;
     private ParameterStore parameterStore;
+
+    public Predictor() {}
 
     /**
      * Creates a new instance of {@code BasePredictor} with the given {@link Model} and {@link

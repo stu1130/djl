@@ -79,7 +79,7 @@ public final class LibUtils {
             cacheDir = getCacheDir(platform);
         }
         String jniPath = copyJniLibraryFromClasspath(cacheDir);
-        System.load(nativePath); // NOPMD
+        //        System.load(nativePath); // NOPMD
         logger.debug("Loading DLR native library from: {}", nativePath);
         System.load(jniPath); // NOPMD
         logger.debug("Loading DLR JNI library from: {}", jniPath);

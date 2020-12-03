@@ -45,12 +45,13 @@ public final class JniUtils {
         return res;
     }
 
-    public static long createDlrModel(String path, Device device) {
+    public static long createDlrModel(long dlrRuntimeId, String path, Device device) {
         int deviceId = 0;
         if (!device.equals(Device.cpu())) {
             deviceId = device.getDeviceId();
         }
-        return DlrLibrary.LIB.createDlrModel(path, mapDevice(device.getDeviceType()), deviceId);
+        return DlrLibrary.LIB.createDlrModel(
+                dlrRuntimeId, path, mapDevice(device.getDeviceType()), deviceId);
     }
 
     public static void deleteDlrModel(long modelHandle) {
@@ -70,7 +71,7 @@ public final class JniUtils {
     }
 
     public static String getDlrVersion() {
-        return DlrLibrary.LIB.getDlrVersion();
+        return "1.5.0";
     }
 
     private static int mapDevice(String deviceType) {

@@ -17,6 +17,7 @@ import ai.djl.ndarray.NDArray;
 import ai.djl.ndarray.NDArrays;
 import ai.djl.ndarray.NDList;
 import ai.djl.ndarray.NDManager;
+import ai.djl.ndarray.index.NDIndex;
 import ai.djl.ndarray.types.DataType;
 import ai.djl.ndarray.types.Shape;
 import ai.djl.ndarray.types.SparseFormat;
@@ -34,6 +35,8 @@ public class NDArrayCreationOpTest {
     @Test
     public void testCreation() {
         try (NDManager manager = NDManager.newBaseManager()) {
+            NDArray targetBox = manager.ones(new Shape(1, 5));
+            targetBox.set(new NDIndex(":, 0::2"), array -> array.mul(-1).add(1));
             // test scalar
             NDArray array = manager.create(-100f);
             Assert.assertEquals(array.getFloat(), -100f);

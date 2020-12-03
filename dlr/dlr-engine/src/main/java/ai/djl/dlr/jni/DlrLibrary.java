@@ -36,15 +36,13 @@ final class DlrLibrary {
 
     native int getDlrNumOutputs(long handle);
 
-    native long createDlrModel(String modelPath, int deviceType, int deviceId);
+    native long createDlrModel(long dlrRuntimeId, String modelPath, int deviceType, int deviceId);
 
     native void deleteDlrModel(long handle);
 
     native void runDlrModel(long handle);
 
     native String getDlrBackend(long handle);
-
-    native String getDlrVersion();
 
     native void setDlrNumThreads(long handle, int threads);
 
