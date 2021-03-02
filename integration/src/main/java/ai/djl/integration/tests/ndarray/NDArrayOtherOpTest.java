@@ -907,7 +907,7 @@ public class NDArrayOtherOpTest {
             x = manager.create(new float[] {1.0f}, new Shape(1));
             x.attachGradient();
             try (GradientCollector gc = Engine.getInstance().newGradientCollector()) {
-                NDArray z = x.mul(x.stopGradient());
+                NDArray z = x.mul(x.detachGradient());
                 gc.backward(z);
                 NDArray grad = x.getGradient();
                 Assert.assertEquals(1f, grad.getFloat(0));

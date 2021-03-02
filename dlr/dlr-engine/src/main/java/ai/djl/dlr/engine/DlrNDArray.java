@@ -117,7 +117,7 @@ public class DlrNDArray implements NDArrayAdapter {
 
     /** {@inheritDoc} */
     @Override
-    public NDArray stopGradient() {
+    public NDArray detachGradient() {
         throw new UnsupportedOperationException("Not supported for DLR");
     }
 

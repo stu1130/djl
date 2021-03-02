@@ -183,7 +183,7 @@ public class TfNDArray implements NDArray {
 
     /** {@inheritDoc} */
     @Override
-    public NDArray stopGradient() {
+    public NDArray detachGradient() {
         throw new UnsupportedOperationException("Not implemented");
     }
 

@@ -201,7 +201,7 @@ public class PtNDArray extends NativeResource<Long> implements NDArray {
 
     /** {@inheritDoc} */
     @Override
-    public NDArray stopGradient() {
+    public NDArray detachGradient() {
         return JniUtils.detachGradient(this);
     }
 

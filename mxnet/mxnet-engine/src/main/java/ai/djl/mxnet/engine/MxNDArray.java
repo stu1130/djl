@@ -268,9 +268,11 @@ public class MxNDArray extends NativeResource<Pointer> implements LazyNDArray {
         return hasGradient;
     }
 
+    /** {@inheritDoc} */
     @Override
-    public NDArray stopGradient() {
-        return manager.invoke("stop_gradient", this, null);
+    public NDArray detachGradient() {
+        Pointer pointer = JnaUtils.MXNDArrayDetach(getHandle());
+        return manager.create(pointer);
     }
 
     /** {@inheritDoc} */

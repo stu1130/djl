@@ -131,7 +131,7 @@ public interface NDArrayAdapter extends NDArray {
 
     /** {@inheritDoc} */
     @Override
-    default NDArray stopGradient() {
+    default NDArray detachGradient() {
         throw new UnsupportedOperationException(UNSUPPORTED_MSG);
     }
 

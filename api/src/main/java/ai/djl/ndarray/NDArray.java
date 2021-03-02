@@ -221,7 +221,7 @@ public interface NDArray extends AutoCloseable {
      *
      * @return an NDArray equal to this that stops gradient propagation through it
      */
-    NDArray stopGradient();
+    NDArray detachGradient();
 
     /**
      * Returns an NDArray equal to this that magnifies the gradient propagated to this by a
@@ -231,7 +231,7 @@ public interface NDArray extends AutoCloseable {
      * @return an NDArray equal to this that magnifies the gradient propagated to this by a constant
      */
     default NDArray scaleGradient(double scale) {
-        return this.mul(scale).add(this.stopGradient().mul(1 - scale));
+        return this.mul(scale).add(this.detachGradient().mul(1 - scale));
     }
 
     /**
